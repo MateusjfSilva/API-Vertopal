@@ -16,28 +16,26 @@ import projeto.changer.services.Vertopal;
 public class VertopalController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private Vertopal vertopal;
     @Value("${api.access.token}")
     private String accessToken;
 
     @PostMapping("/upload")
-    public String enviarArquivo(@RequestParam("data") String data, @RequestParam("file") MultipartFile file){
+    public ResponseEntity enviarArquivo(@RequestParam("data") String data, @RequestParam("file") MultipartFile file){
         if (file != null && !file.isEmpty()) {
             String apiUrl = "https://api.vertopal.com/v1/upload/file";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-            headers.set("Authorization", "Bearer " + accessToken);
+            headers.set("Authorization", "Bearer" + accessToken);
 
-            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-            body.add("data", data);
-            body.add("file", new HttpEntity<>(file.getResource(), headers));
+            Vertopal vertopal = new Vertopal(data, file);
+            vertopal.enviarArquivo(this.vertopal);
+            HttpEntity<Vertopal> requestEntity = new HttpEntity<>(vertopal, headers);
 
-            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-            ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.POST, new HttpEntity<>(body, headers), String.class);
-            return response.getBody();
+            return ResponseEntity.status(200).body(vertopal);
         }
-        return "Arquivo não selecionado";
+        return ResponseEntity.status(400).build();
     }
 
 }
