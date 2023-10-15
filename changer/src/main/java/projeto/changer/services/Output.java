@@ -9,14 +9,7 @@ public class Output {
     private String expiresAt;
     private String status;
     private int duration;
-    private String Url;
-
-    public Output(String connector, String name, Long size, String expiresAt) {
-        this.connector = connector;
-        this.name = name;
-        this.size = size;
-        this.expiresAt = expiresAt;
-    }
+    private String url;
 
     public String getConnector() {
         return connector;
@@ -48,5 +41,29 @@ public class Output {
 
     public void setExpiresAt(String expiresAt) {
         this.expiresAt = expiresAt;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

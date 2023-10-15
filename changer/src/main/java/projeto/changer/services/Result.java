@@ -3,15 +3,11 @@ package projeto.changer.services;
 public class Result {
     private Output output;
 
-    public Result(Output saida) {
-        this.output = saida;
-    }
-
-    public Output getSaida() {
+    public Output getOutput() {
         return output;
     }
 
-    public void setSaida(Output saida) {
-        this.output = saida;
+    public void setOutput(Output output) {
+        this.output = output;
     }
 }
